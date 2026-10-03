@@ -118,6 +118,7 @@ class DisplayAffinityHelper @Inject constructor(
         lastCompanionTargetDisplayId = displayId
         return ActivityOptions.makeBasic()
             .setLaunchDisplayId(displayId)
+            .setLaunchBounds(android.graphics.Rect())
             .toBundle()
     }
 
@@ -241,9 +242,11 @@ class DisplayAffinityHelper @Inject constructor(
             }
             ?: return null
 
-        return ActivityOptions.makeBasic()
-            .setLaunchDisplayId(targetDisplayId)
-            .toBundle()
+        val options = ActivityOptions.makeBasic().setLaunchDisplayId(targetDisplayId)
+        if (forEmulator && targetDisplayId != Display.DEFAULT_DISPLAY) {
+            options.setLaunchBounds(android.graphics.Rect())
+        }
+        return options.toBundle()
     }
 
     fun isPhysicalDisplay(displayId: Int): Boolean {

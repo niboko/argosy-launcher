@@ -213,6 +213,7 @@ class SecondaryHomeActivity :
         }
 
         val slot by dsm.presentationSlot.collectAsState()
+        val hasPresentationScreen by dsm.hasPresentationScreen.collectAsState()
         val presentationSink = androidx.compose.runtime.remember {
             androidx.compose.ui.focus.FocusRequester()
         }
@@ -223,7 +224,9 @@ class SecondaryHomeActivity :
                 .focusRequester(presentationSink)
                 .focusable()
         ) {
-            com.nendo.argosy.ui.dualscreen.PresentationSlotContent(slot)
+            if (hasPresentationScreen) {
+                com.nendo.argosy.ui.dualscreen.PresentationSlotContent(slot)
+            }
         }
     }
 

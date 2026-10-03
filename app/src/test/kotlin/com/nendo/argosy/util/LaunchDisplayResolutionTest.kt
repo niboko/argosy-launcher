@@ -4,6 +4,7 @@ import com.nendo.argosy.data.preferences.EmulatorDisplayTarget
 import com.nendo.argosy.util.DisplayAffinityHelper.Companion.resolveDisplayTargetId
 import com.nendo.argosy.util.DisplayAffinityHelper.Companion.pickLargestScreen
 import com.nendo.argosy.util.DisplayAffinityHelper.Companion.resolveAppLaunchDisplayId
+import com.nendo.argosy.util.DisplayAffinityHelper.Companion.resolveRoleDisplayIds
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertNull
 import org.junit.Test
@@ -12,9 +13,6 @@ private const val BUILT_IN = 0
 private const val LOWER = 4
 private const val MONITOR = 7
 
-/**
- * The Thor with a monitor attached, where the monitor holds the app-target role.
- */
 class LaunchDisplayResolutionTest {
 
     @Test
@@ -173,6 +171,19 @@ class LaunchDisplayResolutionTest {
         )
 
         assertNull(resolved)
+    }
+
+    @Test
+    fun `an external primary without presentation keeps game placement on the external display`() {
+        val roles = resolveRoleDisplayIds(
+            roleDisplayIds = MONITOR to MONITOR,
+            attachedIds = setOf(BUILT_IN, MONITOR),
+            secondaryDisplayId = MONITOR,
+            rolesSwapped = false
+        )
+
+        assertEquals(MONITOR to MONITOR, roles)
+        assertEquals(MONITOR, roles?.second)
     }
 
     @Test

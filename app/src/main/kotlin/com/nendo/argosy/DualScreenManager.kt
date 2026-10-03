@@ -197,8 +197,10 @@ class DualScreenManager(
         hasPresentation: Boolean
     ) {
         displayAffinityHelper.appTargetDisplayId = appTargetDisplayId
-        displayAffinityHelper.roleDisplayIds = presentationDisplayId?.let {
-            primaryDisplayId to it
+        displayAffinityHelper.roleDisplayIds = when {
+            presentationDisplayId != null -> primaryDisplayId to presentationDisplayId
+            displayAffinityHelper.hasPhysicalSecondaryDisplay -> primaryDisplayId to primaryDisplayId
+            else -> null
         }
         _hasPresentationScreen.value = hasPresentation
         setPrimaryDisplayId(primaryDisplayId)

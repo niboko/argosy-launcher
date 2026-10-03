@@ -223,6 +223,17 @@ class ScreenLayoutTest {
     }
 
     @Test
+    fun `turning off the phone presentation leaves the television as the only active screen`() {
+        val layout = layoutOf(BUILT_IN to ScreenRole.PRIMARY, SECOND to ScreenRole.PRESENTATION)
+            .withRole(SECOND, ScreenRole.PRIMARY)
+            .withRole(BUILT_IN, ScreenRole.OFF)
+
+        assertEquals(SECOND, layout.primaryKey)
+        assertNull(layout.presentationKey)
+        assertTrue(layout.isSingleDisplay)
+    }
+
+    @Test
     fun `a primary and a presentation is not a single-display arrangement`() {
         val layout = layoutOf(BUILT_IN to ScreenRole.PRIMARY, SECOND to ScreenRole.PRESENTATION)
         assertTrue(!layout.isSingleDisplay)

@@ -366,6 +366,8 @@ class MainActivity : ComponentActivity() {
                         dualScreenManager.companionHoldsPrimary.collectAsState()
                     val gameActive = dualScreenManager.swappedIsGameActive.collectAsState()
                     val gameDisplay = dualScreenManager.emulatorDisplay.collectAsState()
+                    val hasPresentationScreen =
+                        dualScreenManager.hasPresentationScreen.collectAsState()
                     if (rendersPresentation(
                             companionHoldsPrimary.value,
                             gameActive.value,
@@ -388,10 +390,12 @@ class MainActivity : ComponentActivity() {
                             val preferences = dualScreenManager.preferencesRepository.userPreferences
                             com.nendo.argosy.ui.input.ProvideButtonGlyphs(preferences) {
                                 com.nendo.argosy.ui.components.ProvideStatusBarItems(preferences) {
-                                    com.nendo.argosy.ui.dualscreen.PresentationSlotContent(
-                                        slot,
-                                        showsNotifications = true
-                                    )
+                                    if (hasPresentationScreen.value) {
+                                        com.nendo.argosy.ui.dualscreen.PresentationSlotContent(
+                                            slot,
+                                            showsNotifications = true
+                                        )
+                                    }
                                 }
                             }
                         }
