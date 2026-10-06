@@ -147,6 +147,8 @@ fun GameDetailScreen(
                     try {
                         if (!event.intent.getBooleanExtra("argosy.already_launched", false)) {
                             context.startActivity(event.intent, event.options)
+                            com.nendo.argosy.DualScreenManagerHolder.instance
+                                ?.onGameIntentLaunched(event.intent)
                         }
                     } catch (e: Exception) {
                         viewModel.showLaunchError(

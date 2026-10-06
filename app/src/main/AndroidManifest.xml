@@ -79,6 +79,13 @@
             android:name="android.allow_multiple_resumed_activities"
             android:value="true" />
 
+        <meta-data
+            android:name="com.samsung.android.dex.launchwidth"
+            android:value="0" />
+        <meta-data
+            android:name="com.samsung.android.dex.launchheight"
+            android:value="0" />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"

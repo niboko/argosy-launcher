@@ -775,6 +775,8 @@ fun ArgosyApp(
         val s = netplayJoinState
         if (s is NetplayJoinState.LaunchReady) {
             context.startActivity(s.intent, viewModel.launchOptionsFor(s.gameId))
+            com.nendo.argosy.DualScreenManagerHolder.instance
+                ?.onGameIntentLaunched(s.intent)
             viewModel.resetNetplayJoin()
         }
     }
