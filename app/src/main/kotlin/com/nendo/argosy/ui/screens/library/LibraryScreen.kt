@@ -269,8 +269,6 @@ fun LibraryScreen(
                 is LibraryEvent.LaunchIntent -> {
                     try {
                         context.startActivity(event.intent, event.options)
-                        com.nendo.argosy.DualScreenManagerHolder.instance
-                            ?.onGameIntentLaunched(event.intent)
                     } catch (e: Exception) {
                         android.util.Log.e("LibraryScreen", "Failed to start activity", e)
                     }

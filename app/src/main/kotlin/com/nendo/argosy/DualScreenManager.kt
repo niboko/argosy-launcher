@@ -727,7 +727,6 @@ class DualScreenManager(
             swapStartSelect: Boolean
         )
         fun refocusSelf()
-        fun yieldToExternalGame()
         fun onDownloadCompleted(gameId: Long)
         fun finishCompanion()
     }
@@ -2145,17 +2144,6 @@ class DualScreenManager(
 
     fun setEmulatorDisplay(displayId: Int?) {
         emulatorDisplayId = displayId
-    }
-
-    fun onGameIntentLaunched(intent: Intent) {
-        if (_hasPresentationScreen.value || !sessionStateStore.hasActiveSession()) return
-        val interactiveDisplay = interactiveDisplayId() ?: return
-        if (emulatorDisplayId != interactiveDisplay) return
-        val emulatorPackage = sessionStateStore.getEmulatorPackage() ?: return
-        if (emulatorPackage == appContext.packageName) return
-        val intentPackage = intent.component?.packageName ?: intent.`package` ?: return
-        if (intentPackage != emulatorPackage) return
-        controlCompanion?.yieldToExternalGame()
     }
 
     /** Fallback for launch paths that never assigned a display; the launch path's write wins. */

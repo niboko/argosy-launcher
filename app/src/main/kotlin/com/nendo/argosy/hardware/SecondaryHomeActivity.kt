@@ -705,14 +705,6 @@ class SecondaryHomeActivity :
         }
     )
 
-    override fun yieldToExternalGame() {
-        window.decorView.post {
-            if (!isFinishing && dsm.sessionStateStore.hasActiveSession()) {
-                moveTaskToBack(true)
-            }
-        }
-    }
-
     override fun onDownloadCompleted(gameId: Long) {
         onLibraryRefresh()
     }

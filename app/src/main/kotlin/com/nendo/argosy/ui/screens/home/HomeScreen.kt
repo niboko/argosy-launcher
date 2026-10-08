@@ -258,8 +258,6 @@ fun HomeScreen(
                 is HomeEvent.LaunchIntent -> {
                     try {
                         context.startActivity(event.intent, event.options)
-                        com.nendo.argosy.DualScreenManagerHolder.instance
-                            ?.onGameIntentLaunched(event.intent)
                     } catch (_: Exception) { }
                 }
                 is HomeEvent.NavigateToLibrary -> {
