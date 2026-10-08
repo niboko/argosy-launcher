@@ -241,6 +241,9 @@
     <string name="settings_displays_dual_screen_subtitle">Zweiten Bildschirm als Begleitbildschirm nutzen</string>
     <string name="settings_displays_dual_screen_subtitle_unsupported">Dieses System erlaubt keine Companion-App auf dem zweiten Bildschirm; zum erneuten Versuch aus- und wieder einschalten</string>
 
+    <string name="settings_displays_tv_zoom_safe_area_title">TV-Zoom-Sicherheitsbereich</string>
+    <string name="settings_displays_tv_zoom_safe_area_subtitle">Argosy beim Spiegeln in einem zentrierten 16:9-Bereich halten, damit beim TV-Zoom nichts abgeschnitten wird</string>
+
     <string name="settings_displays_display_roles_title">Steuerbildschirm</string>
     <string name="settings_displays_display_roles_subtitle">Der Bildschirm, auf dem Menüs erscheinen; der andere zeigt, was du gerade ansiehst</string>
     <string name="settings_displays_display_roles_auto">Auto</string>

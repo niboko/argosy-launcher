@@ -233,6 +233,8 @@
     <string name="settings_displays_dual_screen_title">Activer le mode double écran</string>
     <string name="settings_displays_dual_screen_subtitle">Utiliser l\'écran secondaire comme écran compagnon</string>
     <string name="settings_displays_dual_screen_subtitle_unsupported">Ce système n\'autorise pas d\'application compagnon sur l\'écran secondaire ; désactivez puis réactivez pour réessayer</string>
+    <string name="settings_displays_tv_zoom_safe_area_title">Zone sûre pour le zoom du téléviseur</string>
+    <string name="settings_displays_tv_zoom_safe_area_subtitle">Garder Argosy dans une zone 16:9 centrée lors de la recopie d\'écran et du zoom du téléviseur</string>
 
     <string name="settings_displays_display_roles_title">Écran de contrôle</string>
     <string name="settings_displays_display_roles_subtitle">L\'écran où s\'ouvrent les menus ; l\'autre montre ce que vous regardez</string>

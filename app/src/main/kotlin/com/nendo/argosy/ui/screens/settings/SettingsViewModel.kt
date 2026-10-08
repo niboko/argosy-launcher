@@ -1421,6 +1421,7 @@ class SettingsViewModel @Inject constructor(
     fun cycleAppLanguage(direction: Int = 1) = routeCycleAppLanguage(this, direction)
 
     fun setDualScreenEnabled(enabled: Boolean) = routeSetDualScreenEnabled(this, enabled)
+    fun setTvZoomSafeArea(enabled: Boolean) = routeSetTvZoomSafeArea(this, enabled)
 
 
     fun cycleDisplayRoleOverride(direction: Int = 1) = routeCycleDisplayRoleOverride(this, direction)

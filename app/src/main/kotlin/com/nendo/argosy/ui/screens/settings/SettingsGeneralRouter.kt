@@ -498,6 +498,13 @@ internal fun routeSetDualScreenEnabled(vm: SettingsViewModel, enabled: Boolean) 
     }
 }
 
+internal fun routeSetTvZoomSafeArea(vm: SettingsViewModel, enabled: Boolean) {
+    vm.displayDelegate.updateState(vm._uiState.value.display.copy(tvZoomSafeArea = enabled))
+    vm.viewModelScope.launch {
+        vm.preferencesRepository.setTvZoomSafeArea(enabled)
+    }
+}
+
 internal fun routeCycleDisplayRoleOverride(vm: SettingsViewModel, direction: Int) {
     val entries = com.nendo.argosy.data.preferences.DisplayRoleOverride.entries
     val current = vm._uiState.value.display.displayRoleOverride

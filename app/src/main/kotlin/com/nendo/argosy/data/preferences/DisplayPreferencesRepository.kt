@@ -112,6 +112,7 @@ data class DisplayPreferences(
     val screenDimmerTimeoutMinutes: Int = 2,
     val screenDimmerLevel: Int = 50,
     val dualScreenEnabled: Boolean = false,
+    val tvZoomSafeArea: Boolean = false,
     val displayRoleOverride: DisplayRoleOverride = DisplayRoleOverride.AUTO,
     val dualScreenInputFocus: DualScreenInputFocus = DualScreenInputFocus.AUTO,
     val screenLayouts: ScreenLayouts = ScreenLayouts(),
@@ -213,6 +214,7 @@ class DisplayPreferencesRepository @Inject constructor(
         val SCREEN_DIMMER_TIMEOUT_MINUTES = intPreferencesKey("screen_dimmer_timeout_minutes")
         val SCREEN_DIMMER_LEVEL = intPreferencesKey("screen_dimmer_level")
         val DUAL_SCREEN_ENABLED = booleanPreferencesKey("dual_screen_enabled")
+        val TV_ZOOM_SAFE_AREA = booleanPreferencesKey("tv_zoom_safe_area")
         val DISPLAY_ROLE_OVERRIDE = stringPreferencesKey("display_role_override")
         val DUAL_SCREEN_INPUT_FOCUS = stringPreferencesKey("dual_screen_input_focus")
         val SCREEN_LAYOUTS = stringPreferencesKey("screen_layouts")
@@ -319,6 +321,7 @@ class DisplayPreferencesRepository @Inject constructor(
             screenDimmerTimeoutMinutes = prefs[Keys.SCREEN_DIMMER_TIMEOUT_MINUTES] ?: 2,
             screenDimmerLevel = prefs[Keys.SCREEN_DIMMER_LEVEL] ?: 50,
             dualScreenEnabled = prefs[Keys.DUAL_SCREEN_ENABLED] ?: DisplayAffinityHelper.isKnownDualScreenDevice(),
+            tvZoomSafeArea = prefs[Keys.TV_ZOOM_SAFE_AREA] ?: false,
             displayRoleOverride = DisplayRoleOverride.fromString(prefs[Keys.DISPLAY_ROLE_OVERRIDE]),
             dualScreenInputFocus = DualScreenInputFocus.fromString(prefs[Keys.DUAL_SCREEN_INPUT_FOCUS]),
             screenLayouts = ScreenLayouts.fromJson(prefs[Keys.SCREEN_LAYOUTS]),
@@ -728,6 +731,10 @@ class DisplayPreferencesRepository @Inject constructor(
 
     suspend fun setDualScreenEnabled(enabled: Boolean) {
         dataStore.edit { it[Keys.DUAL_SCREEN_ENABLED] = enabled }
+    }
+
+    suspend fun setTvZoomSafeArea(enabled: Boolean) {
+        dataStore.edit { it[Keys.TV_ZOOM_SAFE_AREA] = enabled }
     }
 
     suspend fun setDisplayRoleOverride(override: DisplayRoleOverride) {

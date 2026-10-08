@@ -230,6 +230,8 @@
     <string name="settings_displays_dual_screen_title">डुअल-स्क्रीन मोड चालू करें</string>
     <string name="settings_displays_dual_screen_subtitle">सेकेंडरी डिस्प्ले को कम्पैनियन स्क्रीन के रूप में उपयोग करें</string>
     <string name="settings_displays_dual_screen_subtitle_unsupported">यह सिस्टम सेकेंडरी डिस्प्ले पर कम्पैनियन ऐप की अनुमति नहीं देता; फिर से कोशिश करने के लिए बंद करके चालू करें</string>
+    <string name="settings_displays_tv_zoom_safe_area_title">टीवी ज़ूम सुरक्षित क्षेत्र</string>
+    <string name="settings_displays_tv_zoom_safe_area_subtitle">स्क्रीन मिरर करते समय टीवी ज़ूम के लिए Argosy को बीच के 16:9 क्षेत्र में रखें</string>
 
     <string name="settings_displays_display_roles_title">कंट्रोल स्क्रीन</string>
     <string name="settings_displays_display_roles_subtitle">वह स्क्रीन जिस पर मेन्यू खुलते हैं; दूसरी वह दिखाती है जो आप देख रहे हैं</string>

@@ -214,6 +214,8 @@
     <string name="settings_displays_dual_screen_title">啟用雙螢幕模式</string>
     <string name="settings_displays_dual_screen_subtitle">將第二螢幕作為隨附螢幕使用</string>
     <string name="settings_displays_dual_screen_subtitle_unsupported">此系統不允許在第二螢幕上執行隨附應用程式，請關閉再重新開啟以重試</string>
+    <string name="settings_displays_tv_zoom_safe_area_title">電視縮放安全區域</string>
+    <string name="settings_displays_tv_zoom_safe_area_subtitle">鏡像顯示並使用電視縮放時，讓 Argosy 保持在置中的 16:9 區域內</string>
 
     <string name="settings_displays_display_roles_title">操作螢幕</string>
     <string name="settings_displays_display_roles_subtitle">選單開啟的那個螢幕；另一個顯示你正在看的內容</string>

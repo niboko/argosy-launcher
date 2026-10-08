@@ -68,6 +68,7 @@ internal sealed class DisplaysItem(
     data object DimLevel : DisplaysItem("dimLevel", "screenSafety")
 
     data object DualScreenEnabled : DisplaysItem("dualScreenEnabled", "displays")
+    data object TvZoomSafeArea : DisplaysItem("tvZoomSafeArea", "displays")
     data object DisplayRoles : DisplaysItem(
         key = "displayRoles",
         section = "displays",
@@ -96,7 +97,7 @@ internal sealed class DisplaysItem(
                 ScreenSafetyHeader,
                 ScreenDimmer, DimAfter, DimLevel,
                 DisplaysSpacer, DisplaysHeader,
-                DualScreenEnabled, DisplayRoles, ScreenLayout,
+                DualScreenEnabled, TvZoomSafeArea, DisplayRoles, ScreenLayout,
                 AmbientLedSettings
             )
     }
@@ -236,6 +237,14 @@ fun DisplaysSection(uiState: SettingsUiState, viewModel: SettingsViewModel) {
                 isEnabled = display.dualScreenEnabled,
                 isFocused = isFocused(item),
                 onToggle = { viewModel.setDualScreenEnabled(it) }
+            )
+
+            DisplaysItem.TvZoomSafeArea -> SwitchPreference(
+                title = stringResource(R.string.settings_displays_tv_zoom_safe_area_title),
+                subtitle = stringResource(R.string.settings_displays_tv_zoom_safe_area_subtitle),
+                isEnabled = display.tvZoomSafeArea,
+                isFocused = isFocused(item),
+                onToggle = { viewModel.setTvZoomSafeArea(it) }
             )
 
 

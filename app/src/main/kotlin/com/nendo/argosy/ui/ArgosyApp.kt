@@ -78,6 +78,7 @@ import com.nendo.argosy.data.netplay.VerifySubState
 import com.nendo.argosy.ui.components.CoreCrashModal
 import com.nendo.argosy.ui.components.SaveConflictModal
 import com.nendo.argosy.ui.components.ScreenDimmerOverlay
+import com.nendo.argosy.ui.common.TvZoomSafeArea
 import com.nendo.argosy.ui.input.BackgroundConflictInputHandler
 import com.nendo.argosy.ui.input.CapturingInputHandler
 import com.nendo.argosy.ui.input.GamepadEvent
@@ -1064,6 +1065,7 @@ fun ArgosyApp(
         }
     }
 
+    TvZoomSafeArea(enabled = uiState.tvZoomSafeArea) {
     CompositionLocalProvider(
         LocalInputDispatcher provides inputDispatcher,
         com.nendo.argosy.ui.input.LocalModalPresence provides inputDispatcher,
@@ -1454,6 +1456,7 @@ fun ArgosyApp(
             }
             }
         }
+    }
     }
 }
 

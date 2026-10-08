@@ -108,7 +108,8 @@ data class ArgosyUiState(
     val abIconsSwapped: Boolean = false,
     val xyIconsSwapped: Boolean = false,
     val swapStartSelect: Boolean = false,
-    val menuWrapMode: MenuWrapMode = MenuWrapMode.HARD_STOP
+    val menuWrapMode: MenuWrapMode = MenuWrapMode.HARD_STOP,
+    val tvZoomSafeArea: Boolean = false
 )
 
 /**
@@ -454,7 +455,8 @@ class ArgosyViewModel @Inject constructor(
             abIconsSwapped = glyphSwaps.ab,
             xyIconsSwapped = glyphSwaps.xy,
             swapStartSelect = glyphSwaps.startSelect,
-            menuWrapMode = prefs.menuWrapMode
+            menuWrapMode = prefs.menuWrapMode,
+            tvZoomSafeArea = prefs.tvZoomSafeArea
         )
     }.stateIn(
         scope = viewModelScope,
