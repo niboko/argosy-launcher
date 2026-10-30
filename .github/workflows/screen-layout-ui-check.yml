@@ -28,7 +28,9 @@ jobs:
         with:
           cache-read-only: false
       - name: Build the UI test and debug APKs
-        run: ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest -PciOnly
+        run: |
+          set -o pipefail
+          ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest -PciOnly 2>&1 | tee screen-layout-build.log
       - name: Enable emulator acceleration on the disposable runner
         run: sudo chmod a+rw /dev/kvm
       - name: Verify actual screen-card rendering
@@ -55,6 +57,12 @@ jobs:
           from pathlib import Path
           import xml.etree.ElementTree as ET
           lines = []
+          log = Path('screen-layout-build.log')
+          if log.exists():
+              for line in log.read_text(errors='replace').splitlines():
+                  if line.startswith(('e: ', 'FAILURE: ')) or 'error: ' in line:
+                      message = line.replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+                      print('::error title=Build diagnostic::' + message)
           reports = list(Path('app/build').glob('**/TEST-*.xml'))
           for report in reports:
               try:
@@ -75,6 +83,7 @@ jobs:
         with:
           name: screen-layout-ui-test-evidence
           path: |
+            screen-layout-build.log
             app/build/reports/androidTests/
             app/build/outputs/androidTest-results/
             app/build/reports/tests/
