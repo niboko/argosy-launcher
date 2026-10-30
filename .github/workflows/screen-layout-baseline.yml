@@ -1,0 +1,45 @@
+name: Screen layout duplicate-badge baseline
+on:
+  push:
+    branches: [fix/screen-layout-on-working-display]
+permissions:
+  contents: read
+jobs:
+  baseline:
+    if: github.repository == 'niboko/argosy-launcher'
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+      - uses: actions/setup-java@v6
+        with:
+          java-version: '21'
+          distribution: temurin
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: false
+      - name: Verify screen badge invariants
+        run: |
+          set -o pipefail
+          ./gradlew :app:testDebugUnitTest -PciOnly --tests com.nendo.argosy.DualScreenManagerRoleSwapTest 2>&1 | tee screen-layout-build.log
+      - name: Publish exact failures
+        if: always()
+        shell: python
+        run: |
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          for report in Path('app/build/test-results').glob('**/TEST-*.xml'):
+              for case in ET.parse(report).getroot().iter('testcase'):
+                  for failure in list(case.findall('failure')) + list(case.findall('error')):
+                      detail = failure.get('message') or failure.text or ''
+                      text = (case.get('name', '') + ': ' + detail).replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+                      print('::error title=Badge diagnostic::' + text)
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: screen-layout-duplicate-badge-baseline
+          path: |
+            screen-layout-build.log
+            app/build/test-results/

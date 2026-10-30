@@ -255,7 +255,8 @@ class DualScreenManager(
 
     fun showScreenNumbers(
         size: com.nendo.argosy.hardware.DisplayBadgeSize =
-            com.nendo.argosy.hardware.DisplayBadgeSize.LARGE
+            com.nendo.argosy.hardware.DisplayBadgeSize.LARGE,
+        inContentDisplayId: Int? = null
     ) {
         val screens = attachedScreens()
         val numbers = screens.associate { it.displayId to it.number }

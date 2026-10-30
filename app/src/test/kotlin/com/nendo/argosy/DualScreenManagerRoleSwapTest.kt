@@ -151,6 +151,24 @@ class DualScreenManagerRoleSwapTest {
     }
 
     @Test
+    fun `setup host rendered in content has no duplicate overlay while other built-in badges remain`() {
+        io.mockk.mockkConstructor(com.nendo.argosy.hardware.DisplayBadgeOverlay::class)
+        val overlayNumbers = slot<Map<Int, Int>>()
+        every {
+            anyConstructed<com.nendo.argosy.hardware.DisplayBadgeOverlay>().show(
+                capture(overlayNumbers), any()
+            )
+        } returns Unit
+        val screens = listOf(TOP_SCREEN, LOWER_SCREEN)
+        manager = newManager(attachedScreens = { screens })
+
+        manager.showScreenNumbers(inContentDisplayId = TOP_SCREEN.displayId)
+
+        assertEquals(mapOf(LOWER_SCREEN.displayId to LOWER_SCREEN.number), overlayNumbers.captured)
+        assertEquals(screens.associate { it.displayId to it.number }, manager.screenNumbers.value)
+    }
+
+    @Test
     fun `rebinding after activity destruction resumes presentation preference updates`() {
         val preferences = MutableStateFlow(UserPreferences())
         every { preferencesRepository.userPreferences } returns preferences
