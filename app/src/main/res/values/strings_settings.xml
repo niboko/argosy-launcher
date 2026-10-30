@@ -717,10 +717,6 @@
     <string name="settings_presentation_stat_friends">Friends Playing</string>
 
     <!-- Line above the map of screens, telling the player how to change one. -->
-    <!-- Physical panel labels and the display hosting the setup UI; mirrored outputs share its image. -->
-    <string name="settings_screens_builtin">Built-in screen</string>
-    <string name="settings_screens_external">External display</string>
-    <string name="settings_screens_setup_host">Setup runs on screen %1$d. Mirrored displays share this view.</string>
     <string name="settings_screens_intro">Each screen is drawn where it sits on the device. Pick one to change what it does.</string>
     <!-- Title of the modal that assigns a role. %1$d is the number drawn on the chosen screen. -->
     <string name="settings_screens_role_modal_title">Screen %1$d</string>

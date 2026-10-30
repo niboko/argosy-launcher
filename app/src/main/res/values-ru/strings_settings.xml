@@ -341,9 +341,6 @@
     <string name="settings_presentation_stat_time_to_beat">Время прохождения</string>
     <string name="settings_presentation_stat_achievements">Достижения</string>
     <string name="settings_presentation_stat_friends">Друзья в игре</string>
-    <string name="settings_screens_builtin">Встроенный экран</string>
-    <string name="settings_screens_external">Внешний дисплей</string>
-    <string name="settings_screens_setup_host">Настройка открыта на экране %1$d. Дублирующие дисплеи показывают тот же вид.</string>
     <string name="settings_screens_intro">Каждый экран нарисован там, где он стоит на устройстве. Выберите один, чтобы изменить его задачу.</string>
     <string name="settings_screens_role_modal_title">Экран %1$d</string>
     <string name="settings_screens_role_current">Сейчас</string>

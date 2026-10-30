@@ -17,7 +17,6 @@ import androidx.compose.ui.test.onNodeWithText
 import androidx.compose.ui.unit.dp
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.platform.app.InstrumentationRegistry
-import com.nendo.argosy.R
 import com.nendo.argosy.domain.model.ScreenRole
 import com.nendo.argosy.ui.screens.settings.ScreenAssignment
 import org.junit.Assert.assertTrue
@@ -71,7 +70,7 @@ class ScreenCardLayoutTest {
     }
 
     @Test
-    fun cardIdentifiesPhysicalScreenWithoutAnOverlayWindow() {
+    fun originalCardKeepsItsScreenNumberAndRole() {
         val context = InstrumentationRegistry.getInstrumentation().targetContext
         val screen = mutableStateOf(phone)
         compose.setContent {
@@ -80,12 +79,12 @@ class ScreenCardLayoutTest {
             }
         }
         compose.onNodeWithText("1").assertIsDisplayed()
-        compose.onNodeWithText(context.getString(R.string.settings_screens_builtin)).assertIsDisplayed()
+        compose.onNodeWithText(context.getString(screenRoleTitleRes(ScreenRole.PRIMARY))).assertIsDisplayed()
         compose.runOnIdle {
-            screen.value = phone.copy(key = "tv", displayId = 4, number = 2, builtIn = false)
+            screen.value = phone.copy(key = "tv", displayId = 4, number = 2, builtIn = false, role = ScreenRole.APP_TARGET)
         }
         compose.onNodeWithText("2").assertIsDisplayed()
-        compose.onNodeWithText(context.getString(R.string.settings_screens_external)).assertIsDisplayed()
+        compose.onNodeWithText(context.getString(screenRoleTitleRes(ScreenRole.APP_TARGET))).assertIsDisplayed()
     }
 
     @Test
@@ -98,11 +97,8 @@ class ScreenCardLayoutTest {
                 ScreenSetupIdentity(number.value)
             }
         }
-        val label = context.getString(R.string.settings_screens_setup_host, 1)
         compose.onNodeWithText("1").assertIsDisplayed()
-        compose.onNodeWithText(label).assertIsDisplayed()
         compose.runOnIdle { number.value = null }
         compose.onNodeWithText("1").assertDoesNotExist()
-        compose.onNodeWithText(label).assertDoesNotExist()
     }
 }

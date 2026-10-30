@@ -266,7 +266,7 @@ class DualScreenManager(
         } else {
             screens.filter { it.builtIn }.associate { it.displayId to it.number }
         }
-        displayBadges.show(overlayNumbers, size)
+        displayBadges.show(overlayNumbers.filterKeys { it != inContentDisplayId }, size)
     }
 
     fun hideScreenNumbers() {
