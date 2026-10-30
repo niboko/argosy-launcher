@@ -332,6 +332,9 @@
     <string name="settings_presentation_stat_time_to_beat">पूरा करने का समय</string>
     <string name="settings_presentation_stat_achievements">उपलब्धियाँ</string>
     <string name="settings_presentation_stat_friends">खेल रहे दोस्त</string>
+    <string name="settings_screens_builtin">बिल्ट-इन स्क्रीन</string>
+    <string name="settings_screens_external">बाहरी डिस्प्ले</string>
+    <string name="settings_screens_setup_host">सेटअप स्क्रीन %1$d पर खुला है। मिरर किए गए डिस्प्ले यही दृश्य दिखाते हैं।</string>
     <string name="settings_screens_intro">हर स्क्रीन वहीं दिखाई गई है जहाँ वह डिवाइस पर है। उसका काम बदलने के लिए एक चुनें।</string>
     <string name="settings_screens_role_modal_title">स्क्रीन %1$d</string>
     <string name="settings_screens_role_current">मौजूदा</string>

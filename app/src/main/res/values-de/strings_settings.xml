@@ -342,6 +342,9 @@
     <string name="settings_presentation_stat_time_to_beat">Dauer zum Durchspielen</string>
     <string name="settings_presentation_stat_achievements">Erfolge</string>
     <string name="settings_presentation_stat_friends">Freunde, die spielen</string>
+    <string name="settings_screens_builtin">Integrierter Bildschirm</string>
+    <string name="settings_screens_external">Externes Display</string>
+    <string name="settings_screens_setup_host">Die Einrichtung läuft auf Bildschirm %1$d. Gespiegelte Displays zeigen dieselbe Ansicht.</string>
     <string name="settings_screens_intro">Jeder Bildschirm wird dort gezeichnet, wo er am Gerät sitzt. Wähle einen aus, um seine Aufgabe zu ändern.</string>
     <string name="settings_screens_role_modal_title">Bildschirm %1$d</string>
     <string name="settings_screens_role_current">Aktuell</string>

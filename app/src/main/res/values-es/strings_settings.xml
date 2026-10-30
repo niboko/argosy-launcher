@@ -347,6 +347,9 @@
     <string name="settings_presentation_stat_time_to_beat">Duración</string>
     <string name="settings_presentation_stat_achievements">Logros</string>
     <string name="settings_presentation_stat_friends">Amigos jugando</string>
+    <string name="settings_screens_builtin">Pantalla integrada</string>
+    <string name="settings_screens_external">Pantalla externa</string>
+    <string name="settings_screens_setup_host">La configuración se muestra en la pantalla %1$d. Las pantallas duplicadas muestran la misma vista.</string>
     <string name="settings_screens_intro">Cada pantalla se dibuja donde está en el dispositivo. Elige una para cambiar su función.</string>
     <string name="settings_screens_role_modal_title">Pantalla %1$d</string>
     <string name="settings_screens_role_current">Actual</string>

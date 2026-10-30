@@ -314,6 +314,9 @@
     <string name="settings_presentation_stat_time_to_beat">通關時長</string>
     <string name="settings_presentation_stat_achievements">成就</string>
     <string name="settings_presentation_stat_friends">正在玩的好友</string>
+    <string name="settings_screens_builtin">內建螢幕</string>
+    <string name="settings_screens_external">外接顯示器</string>
+    <string name="settings_screens_setup_host">設定介面位於螢幕 %1$d。鏡像顯示器會顯示相同畫面。</string>
     <string name="settings_screens_intro">每片螢幕依其在裝置上的位置繪製。選一片以變更其用途。</string>
     <string name="settings_screens_role_modal_title">螢幕 %1$d</string>
     <string name="settings_screens_role_current">目前</string>

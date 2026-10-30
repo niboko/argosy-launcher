@@ -40,7 +40,10 @@ jobs:
           profile: pixel_2
           disable-animations: true
           emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
-          script: ./gradlew :app:connectedDebugAndroidTest -PciOnly -Pandroid.testInstrumentationRunnerArguments.class=com.nendo.argosy.ui.screens.settings.sections.ScreenCardLayoutTest
+          script: |
+            adb install -r app/build/outputs/apk/debug/app-debug.apk
+            adb shell appops set com.nendo.argosy.debug SYSTEM_ALERT_WINDOW deny
+            ./gradlew :app:connectedDebugAndroidTest -PciOnly -Pandroid.testInstrumentationRunnerArguments.class=com.nendo.argosy.ui.screens.settings.sections.ScreenCardLayoutTest
       - name: Run screen-layout JVM regressions
         if: always()
         run: ./gradlew :app:testDebugUnitTest -PciOnly --tests com.nendo.argosy.DualScreenManagerRoleSwapTest --tests com.nendo.argosy.ui.screens.settings.sections.ScreensFocusMoveTest
@@ -61,7 +64,8 @@ jobs:
               lines.append(f"{root.get('name')}: tests={root.get('tests')} failures={root.get('failures')} errors={root.get('errors')}")
               for case in root.iter('testcase'):
                   for failure in list(case.findall('failure')) + list(case.findall('error')):
-                      message = (case.get('name', '') + ': ' + failure.get('message', '')).replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+                      detail = failure.get('message') or (failure.text or '')
+                      message = (case.get('name', '') + ': ' + detail).replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
                       print('::error title=Screen layout diagnostic::' + message)
           with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as output:
               output.write('\n\n'.join(lines) if lines else 'No test XML generated.')

@@ -28,7 +28,7 @@ import androidx.core.content.ContextCompat
 import com.nendo.argosy.DualScreenManagerHolder
 import com.nendo.argosy.R
 import com.nendo.argosy.domain.model.ScreenRole
-import com.nendo.argosy.ui.components.ScreenNumberBadge
+import com.nendo.argosy.ui.components.ScreenNumberChip
 import com.nendo.argosy.ui.primitives.FocusIndicators
 import com.nendo.argosy.ui.primitives.argosyFocusIndicators
 import com.nendo.argosy.ui.screens.settings.ScreenAssignment
@@ -113,6 +113,8 @@ fun ScreensSection(uiState: SettingsUiState, viewModel: SettingsViewModel) {
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
 
+        ScreenSetupIdentity(hereNumber)
+
         BoxWithConstraints(modifier = Modifier.fillMaxWidth().weight(1f)) {
             val internalSpan =
                 if (attached.isEmpty()) maxWidth else maxWidth * INTERNAL_WIDTH_SHARE
@@ -179,6 +181,23 @@ fun ScreensSection(uiState: SettingsUiState, viewModel: SettingsViewModel) {
 }
 
 @Composable
+internal fun ScreenSetupIdentity(number: Int?) {
+    if (number == null) return
+    Row(
+        horizontalArrangement = Arrangement.spacedBy(Dimens.spacingSm),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        ScreenNumberChip(number = number)
+        Text(
+            text = stringResource(R.string.settings_screens_setup_host, number),
+            style = MaterialTheme.typography.bodySmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            modifier = Modifier.weight(1f)
+        )
+    }
+}
+
+@Composable
 internal fun ScreenCard(
     screen: ScreenAssignment,
     perPixel: Dp,
@@ -190,23 +209,22 @@ internal fun ScreenCard(
         modifier = Modifier
             .width(perPixel * screen.widthPx.toFloat())
             .height(perPixel * screen.heightPx.toFloat())
-            .argosyFocusIndicators(
-                focused = isFocused,
-                indicators = FocusIndicators.ListRow,
-                shape = RoundedCornerShape(Dimens.radiusSm)
-            )
             .clip(RoundedCornerShape(Dimens.radiusSm))
             .background(
                 if (dimmed) MaterialTheme.colorScheme.surfaceVariant.copy(alpha = 0.35f)
                 else MaterialTheme.colorScheme.surfaceVariant
             )
+            .argosyFocusIndicators(
+                focused = isFocused,
+                indicators = FocusIndicators(fill = true, ring = true),
+                ringThickness = Dimens.borderMedium,
+                shape = RoundedCornerShape(Dimens.radiusSm)
+            )
             .clickableNoFocus(onClick = onClick),
         contentAlignment = Alignment.Center
     ) {
-        Text(
-            text = screen.number.toString(),
-            style = MaterialTheme.typography.labelLarge,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        ScreenNumberChip(
+            number = screen.number,
             modifier = Modifier
                 .align(Alignment.TopStart)
                 .padding(Dimens.spacingSm)
@@ -217,6 +235,16 @@ internal fun ScreenCard(
             color = MaterialTheme.colorScheme.onSurface,
             textAlign = TextAlign.Center,
             modifier = Modifier.padding(Dimens.spacingSm)
+        )
+        Text(
+            text = stringResource(
+                if (screen.builtIn) R.string.settings_screens_builtin
+                else R.string.settings_screens_external
+            ),
+            style = MaterialTheme.typography.labelSmall,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            textAlign = TextAlign.Center,
+            modifier = Modifier.align(Alignment.BottomCenter).padding(Dimens.spacingSm)
         )
     }
 }
