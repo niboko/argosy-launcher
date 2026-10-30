@@ -179,7 +179,7 @@ fun ScreensSection(uiState: SettingsUiState, viewModel: SettingsViewModel) {
 }
 
 @Composable
-private fun ScreenCard(
+internal fun ScreenCard(
     screen: ScreenAssignment,
     perPixel: Dp,
     isFocused: Boolean,

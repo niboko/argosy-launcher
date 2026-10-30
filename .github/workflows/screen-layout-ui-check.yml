@@ -1,0 +1,84 @@
+name: Screen layout UI verification
+
+on:
+  push:
+    branches: [fix/screen-layout-on-working-display]
+
+permissions:
+  contents: read
+
+concurrency:
+  group: screen-layout-ui-verification
+  cancel-in-progress: true
+
+jobs:
+  screen-layout:
+    if: github.repository == 'niboko/argosy-launcher'
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          submodules: recursive
+      - uses: actions/setup-java@v6
+        with:
+          java-version: '21'
+          distribution: temurin
+      - uses: gradle/actions/setup-gradle@v4
+        with:
+          cache-read-only: false
+      - name: Build the UI test and debug APKs
+        run: ./gradlew :app:assembleDebug :app:assembleDebugAndroidTest -PciOnly
+      - name: Enable emulator acceleration on the disposable runner
+        run: sudo chmod a+rw /dev/kvm
+      - name: Verify actual screen-card rendering
+        uses: ReactiveCircus/android-emulator-runner@4c44018e59b437e86cdfc41da381398f93ed8808
+        with:
+          api-level: 30
+          arch: x86_64
+          target: google_apis
+          profile: pixel_2
+          disable-animations: true
+          emulator-options: -no-window -gpu swiftshader_indirect -noaudio -no-boot-anim -camera-back none
+          script: ./gradlew :app:connectedDebugAndroidTest -PciOnly -Pandroid.testInstrumentationRunnerArguments.class=com.nendo.argosy.ui.screens.settings.sections.ScreenCardLayoutTest
+      - name: Run screen-layout JVM regressions
+        if: always()
+        run: ./gradlew :app:testDebugUnitTest -PciOnly --tests com.nendo.argosy.DualScreenManagerRoleSwapTest --tests com.nendo.argosy.ui.screens.settings.sections.ScreensFocusMoveTest
+      - name: Publish exact test diagnostics
+        if: always()
+        shell: python
+        run: |
+          import os
+          from pathlib import Path
+          import xml.etree.ElementTree as ET
+          lines = []
+          reports = list(Path('app/build').glob('**/TEST-*.xml'))
+          for report in reports:
+              try:
+                  root = ET.parse(report).getroot()
+              except ET.ParseError:
+                  continue
+              lines.append(f"{root.get('name')}: tests={root.get('tests')} failures={root.get('failures')} errors={root.get('errors')}")
+              for case in root.iter('testcase'):
+                  for failure in list(case.findall('failure')) + list(case.findall('error')):
+                      message = (case.get('name', '') + ': ' + failure.get('message', '')).replace('%', '%25').replace('\r', '%0D').replace('\n', '%0A')
+                      print('::error title=Screen layout diagnostic::' + message)
+          with open(os.environ['GITHUB_STEP_SUMMARY'], 'a') as output:
+              output.write('\n\n'.join(lines) if lines else 'No test XML generated.')
+      - name: Upload test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screen-layout-ui-test-evidence
+          path: |
+            app/build/reports/androidTests/
+            app/build/outputs/androidTest-results/
+            app/build/reports/tests/
+            app/build/test-results/
+      - name: Upload debug APK for the next hardware check
+        if: success()
+        uses: actions/upload-artifact@v4
+        with:
+          name: screen-layout-ui-debug
+          path: app/build/outputs/apk/debug/app-debug.apk
+          if-no-files-found: error
